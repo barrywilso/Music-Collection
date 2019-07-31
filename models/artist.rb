@@ -7,23 +7,29 @@ class Artist
   attr_accessor :name
 
 
-def initialize(artist)
-  @id = artist['id'].to_i() if artist['id']
-  @name = artist['name']
-end
+  def initialize(artist)
+    @id = artist['id'].to_i() if artist['id']
+    @name = artist['name']
+  end
 
-def Artist.delete_all()
+  def Artist.delete_all()
     sql = "DELETE FROM artists"
     SqlRunner.run(sql)
   end
 
-def save()
-  sql = "INSERT INTO artists (name) VALUES ($1) RETURNING id"
-  values = [@name]
-  returned_array = SqlRunner.run(sql, values)
-  artist_hash = returned_array[0]
-  id_string = artist_hash['id']
-  @id = id_string.to_i
-end
+  def save()
+    sql = "INSERT INTO artists (name) VALUES ($1) RETURNING id"
+    values = [@name]
+    returned_array = SqlRunner.run(sql, values)
+    artist_hash = returned_array[0]
+    id_string = artist_hash['id']
+    @id = id_string.to_i
+  end
+
+  def self.all()
+    sql = "SELECT * FROM artists"
+    artist = SqlRunner.run(sql)
+    return artists.map()
+  end
 
 end

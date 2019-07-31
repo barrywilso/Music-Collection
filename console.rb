@@ -38,8 +38,19 @@ album2 = Album.new(
   }
 )
 
+album3 = Album.new(
+  {
+    'title' => 'Sparkle in the Rain',
+    'genre' => 'Rock',
+    'artist_id' => artist2.id,
+  }
+)
+
+
 album1.save()
 album2.save()
+album3.save()
+
 
 binding.pry
 nil
